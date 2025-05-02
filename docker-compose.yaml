@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  app:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/repo}/app:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
